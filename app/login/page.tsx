@@ -1,5 +1,3 @@
-'use client';
-
 import { createClient } from "@/lib/supabaseServer"
 
 export default function LoginPage() {

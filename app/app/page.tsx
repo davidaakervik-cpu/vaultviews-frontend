@@ -1,22 +1,27 @@
-import { supabaseServer } from '@/lib/supabaseServer';
+import { createClient } from "@/lib/supabaseServer"
 
-export default async function DashboardPage() {
-  const supabase = await supabaseServer();
-  const { data: { user } } = await supabase.auth.getUser();
+export default async function Page() {
+  const supabase = createClient()
 
+  // Fetch the authenticated user
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  // If no user, redirect to login
   if (!user) {
     return (
-      <div style={{ padding: 40 }}>
-        <h1>Not authorized</h1>
-        <p>Please log in first.</p>
+      <div className="flex items-center justify-center h-screen">
+        <p>You are not logged in.</p>
       </div>
-    );
+    )
   }
 
   return (
-    <div style={{ padding: 40 }}>
-      <h1>VaultViews Dashboard</h1>
-      <p>Welcome, {user.email}</p>
+    <div className="flex items-center justify-center h-screen">
+      <h1 className="text-2xl font-semibold">
+        Welcome, {user.email}
+      </h1>
     </div>
-  );
+  )
 }

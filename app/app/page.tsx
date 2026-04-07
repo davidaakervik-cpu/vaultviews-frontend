@@ -1,14 +1,14 @@
-export const dynamic = "force-dynamic"
+export const dynamic = "force-dynamic";
 
-import { createClient } from "@/lib/supabaseServer"
+import { createClient } from "@/lib/supabaseServer";
 
 export default async function Page() {
-  const supabase = createClient()
+  const supabase = createClient();
 
   // Fetch the authenticated user
   const {
     data: { user },
-  } = await supabase.auth.getUser()
+  } = await supabase.auth.getUser();
 
   // If no user, redirect to login
   if (!user) {
@@ -16,14 +16,21 @@ export default async function Page() {
       <div className="flex items-center justify-center h-screen">
         <p>You are not logged in.</p>
       </div>
-    )
+    );
   }
 
+  // Authenticated view
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-2xl font-semibold">
         Welcome, {user.email}
       </h1>
+
+      {/* Tailwind test — safe to remove later */}
+      <div className="text-red-500 text-xl mt-4">
+        Tailwind works
+      </div>
     </div>
-  )
+  );
 }
+
